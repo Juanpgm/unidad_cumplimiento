@@ -1,0 +1,2 @@
+//Hay quecrear este widget para poder mostrar el estado de la tarea en la lista de tareas
+//Este widget se encarga de mostrar el estado de la tarea en un contenedor con un color que depende del estado de la tarea

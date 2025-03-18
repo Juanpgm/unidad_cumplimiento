@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class TaskStateContainer extends StatelessWidget {
+class TaskEstadoContainer extends StatelessWidget {
   final String state_text;
 
-  TaskStateContainer({required this.state_text});
+  TaskEstadoContainer({required this.state_text});
 
   Map<String, Color> _getStateColors(String state) {
     Color darken(Color color, double amount) {
