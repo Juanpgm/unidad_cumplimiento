@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DescripcionExpandible extends StatefulWidget {
   final String descripcion;
 
-  const DescripcionExpandible({Key? key, required this.descripcion}) : super(key: key);
+  const DescripcionExpandible({super.key, required this.descripcion});
 
   @override
   _DescripcionExpandibleState createState() => _DescripcionExpandibleState();
@@ -23,7 +23,7 @@ class _DescripcionExpandibleState extends State<DescripcionExpandible> {
               isExpanded = !isExpanded;
             });
           },
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),

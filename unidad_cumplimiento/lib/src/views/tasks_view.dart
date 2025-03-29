@@ -10,7 +10,7 @@ import 'package:unidad_cumplimiento/src/datos_proceso.dart'; // Importa datos_pr
 class TasksView extends StatefulWidget {
   final String nombreProceso;
 
-  const TasksView({Key? key, required this.nombreProceso}) : super(key: key);
+  const TasksView({super.key, required this.nombreProceso});
 
   @override
   _TasksViewState createState() => _TasksViewState();
@@ -60,46 +60,64 @@ class _TasksViewState extends State<TasksView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      appBar: SecondaryAppBar(
-        title: 'Actividades del Proceso',
-      ),
-      drawer: const CustomDrawer(), // Añade el CustomDrawer
-      body: Column(
-        children: [
-          CustomSearchBar(
-            hintText: 'Buscar actividades...',
-            onSearchChanged: (value) {
-              // Implement your search logic here
-            },
-          ), // Añade el CustomSearchBar
-          CustomFilter(
-            group1: tipoTarea,
-            group2: estadosTarea,
-            onGroup1Changed: (newGroup1) {
-              setState(() {
-                tipoTarea.addAll(newGroup1);
-                _filtrarTareas();
-              });
-            },
-            onGroup2Changed: (newGroup2) {
-              setState(() {
-                estadosTarea.addAll(newGroup2);
-                _filtrarTareas();
-              });
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isLargeScreen = constraints.maxWidth >= 768; // Detecta pantallas grandes
+
+        return Scaffold(
+          key: scaffoldKey,
+          appBar: isLargeScreen
+              ? null // No muestra AppBar en pantallas grandes
+              : const SecondaryAppBar(
+                  title: 'Actividades del Proceso',
+                ),
+          drawer: isLargeScreen
+              ? null // No muestra el drawer en pantallas grandes porque ya está visible
+              : const CustomDrawer(),
+          body: Row(
+            children: [
+              if (isLargeScreen)
+                const CustomDrawer(), // Muestra el drawer por defecto en pantallas grandes
+              Expanded(
+                child: Column(
+                  children: [
+                    CustomSearchBar(
+                      hintText: 'Buscar actividades...',
+                      onSearchChanged: (value) {
+                        // Implementa la lógica de búsqueda aquí
+                      },
+                    ), // Añade el CustomSearchBar
+                    CustomFilter(
+                      group1: tipoTarea,
+                      group2: estadosTarea,
+                      onGroup1Changed: (newGroup1) {
+                        setState(() {
+                          tipoTarea.addAll(newGroup1);
+                          _filtrarTareas();
+                        });
+                      },
+                      onGroup2Changed: (newGroup2) {
+                        setState(() {
+                          estadosTarea.addAll(newGroup2);
+                          _filtrarTareas();
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: TaskListView(tareas: tareasFiltradas),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          floatingActionButton: CustomAddButton(
+            onPressed: () {
+              // Implementa la lógica del botón aquí
             },
           ),
-          Expanded(
-            child: TaskListView(tareas: tareasFiltradas),
-          ),
-        ],
-      ),
-      floatingActionButton: CustomAddButton(
-        onPressed: () {
-          // Implement your add button logic here
-        },
-      ),
+        );
+      },
     );
   }
 }

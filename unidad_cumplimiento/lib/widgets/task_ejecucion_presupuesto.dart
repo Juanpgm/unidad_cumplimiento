@@ -7,12 +7,12 @@ class TaskEjecucionPresupuesto extends StatelessWidget {
   final Color textColor;
 
   const TaskEjecucionPresupuesto({
-    Key? key,
+    super.key,
     required this.pptoAsignado,
     required this.pptoEjecutado,
     required this.containerColor,
     required this.textColor,
-  }) : super(key: key);
+  });
 
   Map<String, Color> _getColors(double porcentajeEjecucion) {
     Color darken(Color color, double amount) {

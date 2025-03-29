@@ -5,10 +5,10 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onMenuPressed;
 
   const MainAppBar({
-    Key? key,
+    super.key,
     required this.title,
     required this.onMenuPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

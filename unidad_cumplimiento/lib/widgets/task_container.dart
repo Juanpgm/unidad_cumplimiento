@@ -9,7 +9,7 @@ import 'package:unidad_cumplimiento/src/theme/padding_defaults.dart'; // Importa
 class TaskContainer extends StatelessWidget {
   final Map<String, dynamic> tarea;
 
-  const TaskContainer({Key? key, required this.tarea}) : super(key: key);
+  const TaskContainer({super.key, required this.tarea});
 
   @override
   Widget build(BuildContext context) {

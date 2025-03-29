@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TaskEstadoContainer extends StatelessWidget {
   final String state_text;
 
-  TaskEstadoContainer({required this.state_text});
+  const TaskEstadoContainer({super.key, required this.state_text});
 
   Map<String, Color> _getStateColors(String state) {
     Color darken(Color color, double amount) {
@@ -30,7 +30,7 @@ class TaskEstadoContainer extends StatelessWidget {
     Map<String, Color> colors = _getStateColors(state_text);
 
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: colors['containerColor'], // Determina el color del contenedor
         borderRadius: BorderRadius.circular(8.0),
@@ -47,7 +47,7 @@ class TaskEstadoContainer extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 8.0), // Espacio entre los textos
+          const SizedBox(height: 8.0), // Espacio entre los textos
           Text(
             'Estado actual de la tarea',
             style: TextStyle(

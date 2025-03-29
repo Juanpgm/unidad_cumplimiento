@@ -5,7 +5,7 @@ class CustomAddButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double elevation;
 
-  const CustomAddButton({Key? key, required this.onPressed, this.elevation = 6.0}) : super(key: key);
+  const CustomAddButton({super.key, required this.onPressed, this.elevation = 6.0});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class CustomAddButton extends StatelessWidget {
           minWidth: 56.0 * 1.15, // Incrementa el tamaño del botón en un 15%
           minHeight: 56.0 * 1.15, // Incrementa el tamaño del botón en un 15%
         ),
-        padding: EdgeInsets.all(16.0 * 1.15), // Ajusta el padding para mantener el ícono centrado
+        padding: const EdgeInsets.all(16.0 * 1.15), // Ajusta el padding para mantener el ícono centrado
       ),
     );
   }

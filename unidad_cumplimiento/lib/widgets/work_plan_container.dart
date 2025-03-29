@@ -13,14 +13,14 @@ class ProcesoWidget extends StatefulWidget {
   final String segmento; // Añade el parámetro segmento
 
   const ProcesoWidget({
-    Key? key,
+    super.key,
     required this.nombreProceso,
     required this.userImagen,
     required this.tareasCompletadas,
     required this.tareasRegistradas,
     required this.nombreUsuario,
     required this.segmento, // Añade el parámetro segmento
-  }) : super(key: key);
+  });
 
   @override
   _ProcesoWidgetState createState() => _ProcesoWidgetState();
@@ -135,7 +135,7 @@ class _ProcesoWidgetState extends State<ProcesoWidget> {
                           width: 50.0,
                           height: 50.0,
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.black54,
                           ),

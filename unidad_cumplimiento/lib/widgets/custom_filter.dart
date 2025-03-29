@@ -7,12 +7,12 @@ class CustomFilter extends StatefulWidget {
   final ValueChanged<Map<String, bool>> onGroup2Changed;
 
   const CustomFilter({
-    Key? key,
+    super.key,
     required this.group1,
     required this.group2,
     required this.onGroup1Changed,
     required this.onGroup2Changed,
-  }) : super(key: key);
+  });
 
   @override
   _CustomFilterState createState() => _CustomFilterState();
@@ -32,8 +32,8 @@ class _CustomFilterState extends State<CustomFilter> {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      leading: Icon(Icons.filter_list),
-      title: Text('Filtros'),
+      leading: const Icon(Icons.filter_list),
+      title: const Text('Filtros'),
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -41,7 +41,7 @@ class _CustomFilterState extends State<CustomFilter> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ExpansionTile(
-                title: Text('Por tipo de tarea', style: TextStyle(fontWeight: FontWeight.bold)),
+                title: const Text('Por tipo de tarea', style: TextStyle(fontWeight: FontWeight.bold)),
                 children: group1.keys.map((String key) {
                   return CheckboxListTile(
                     title: Text(key),
@@ -56,7 +56,7 @@ class _CustomFilterState extends State<CustomFilter> {
                 }).toList(),
               ),
               ExpansionTile(
-                title: Text('Por estado de tarea', style: TextStyle(fontWeight: FontWeight.bold)),
+                title: const Text('Por estado de tarea', style: TextStyle(fontWeight: FontWeight.bold)),
                 children: group2.keys.map((String key) {
                   return CheckboxListTile(
                     title: Text(key),

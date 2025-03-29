@@ -7,11 +7,11 @@ class CustomChoiceChips extends StatefulWidget {
   final String selectedOption;
 
   const CustomChoiceChips({
-    Key? key,
+    super.key,
     required this.options,
     required this.onSelected,
     required this.selectedOption,
-  }) : super(key: key);
+  });
 
   @override
   _CustomChoiceChipsState createState() => _CustomChoiceChipsState();
@@ -34,7 +34,7 @@ class _CustomChoiceChipsState extends State<CustomChoiceChips> {
             color: widget.selectedOption == option ? ColorTheme.whiteColor : Colors.black,
           ), // Cambia el color del texto cuando se selecciona
           avatar: widget.selectedOption == option
-              ? Icon(
+              ? const Icon(
                   Icons.check,
                   color: ColorTheme.whiteColor,
                   size: 20.0, // Ajusta el tamaño del ícono para mayor contraste

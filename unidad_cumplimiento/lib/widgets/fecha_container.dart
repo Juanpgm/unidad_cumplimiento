@@ -1,74 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:unidad_cumplimiento/src/theme/padding_defaults.dart'; // Importa padding_defaults.dart
 
-class FechaContainer extends StatefulWidget {
+class FechaContainer extends StatelessWidget {
   final String texto;
   final DateTime fechaInicial;
+  final bool editable; // Nueva propiedad
 
-  const FechaContainer({Key? key, required this.texto, required this.fechaInicial}) : super(key: key);
-
-  @override
-  _FechaContainerState createState() => _FechaContainerState();
-}
-
-class _FechaContainerState extends State<FechaContainer> {
-  bool isExpanded = false;
-  late DateTime selectedDate;
-
-  @override
-  void initState() {
-    super.initState();
-    selectedDate = widget.fechaInicial;
-  }
+  const FechaContainer({
+    super.key,
+    required this.texto,
+    required this.fechaInicial,
+    this.editable = false, // Por defecto no editable
+  });
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    final String formattedDate = formatter.format(selectedDate);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              isExpanded = !isExpanded;
-            });
-          },
-          child: Container(
-            width: double.infinity,
-            padding: PaddingDefaults.small, // Usa el padding pequeño
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Text(
-              '${widget.texto}: $formattedDate',
-              style: const TextStyle(fontSize: 16),
-            ),
+    return SizedBox(
+      width: double.infinity, // Ocupa todo el ancho disponible
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: editable ? Colors.blue : Colors.grey, // Cambia el color si es editable
           ),
+          borderRadius: BorderRadius.circular(8),
         ),
-        if (isExpanded)
-          Container(
-            width: double.infinity,
-            padding: PaddingDefaults.small, // Usa el padding pequeño
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(8.0),
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              texto,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
-            child: CalendarDatePicker(
-              initialDate: selectedDate,
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2100),
-              onDateChanged: (date) {
-                setState(() {
-                  selectedDate = date;
-                });
-              },
+            const SizedBox(height: 4),
+            Text(
+              '${fechaInicial.day}/${fechaInicial.month}/${fechaInicial.year}',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: editable ? Colors.black : Colors.grey, // Cambia el color si es editable
+                  ),
             ),
-          ),
-      ],
+          ],
+        ),
+      ),
     );
   }
 }

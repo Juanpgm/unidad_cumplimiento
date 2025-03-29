@@ -4,7 +4,7 @@ import 'package:unidad_cumplimiento/src/theme/padding_defaults.dart'; // Importa
 class CustomSearchBar extends StatelessWidget {
   final String hintText;
 
-  const CustomSearchBar({Key? key, required this.hintText, required Null Function(dynamic query) onSearchChanged}) : super(key: key);
+  const CustomSearchBar({super.key, required this.hintText, required Null Function(dynamic query) onSearchChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class CustomSearchBar extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           hintText: hintText,
-          suffixIcon: Icon(Icons.search),
+          suffixIcon: const Icon(Icons.search),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide.none,

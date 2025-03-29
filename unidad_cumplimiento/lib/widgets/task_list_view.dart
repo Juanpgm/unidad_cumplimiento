@@ -4,7 +4,7 @@ import 'task_container.dart';
 class TaskListView extends StatelessWidget {
   final List<Map<String, dynamic>> tareas;
 
-  const TaskListView({Key? key, required this.tareas}) : super(key: key);
+  const TaskListView({super.key, required this.tareas});
 
   @override
   Widget build(BuildContext context) {

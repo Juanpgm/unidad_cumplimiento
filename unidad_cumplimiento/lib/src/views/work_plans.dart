@@ -7,6 +7,7 @@ import 'package:unidad_cumplimiento/widgets/custom_choice_chips.dart'; // Import
 import 'package:unidad_cumplimiento/widgets/custom_add_button.dart'; // Importa custom_add_button.dart
 import 'package:unidad_cumplimiento/src/datos_proceso.dart'; // Importa datos_proceso.dart
 import 'package:unidad_cumplimiento/src/theme/color_theme.dart'; // Importa color_theme.dart
+import 'package:unidad_cumplimiento/widgets/create_process_dialog.dart'; // Importa el diálogo
 
 void main() {
   runApp(const UnidadCumplimientoApp());
@@ -17,15 +18,15 @@ class UnidadCumplimientoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowMaterialGrid: false,
-      home: const WorkPlansScreen(),
+      home: WorkPlansScreen(),
     );
   }
 }
 
 class WorkPlansScreen extends StatefulWidget {
-  const WorkPlansScreen({Key? key}) : super(key: key);
+  const WorkPlansScreen({super.key});
 
   @override
   _WorkPlansScreenState createState() => _WorkPlansScreenState();
@@ -51,46 +52,75 @@ class _WorkPlansScreenState extends State<WorkPlansScreen> {
       return matchesSearchQuery && matchesFilter;
     }).toList();
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: ColorTheme.backgroundColor, // Usa backgroundColor de color_theme.dart
-      appBar: MainAppBar(
-        title: 'Procesos',
-        onMenuPressed: () {
-          scaffoldKey.currentState?.openDrawer();
-        },
-      ),
-      drawer: const CustomDrawer(),
-      body: Column(
-        children: [
-          CustomSearchBar(
-            hintText: 'Buscar procesos...',
-            onSearchChanged: (query) {
-              setState(() {
-                searchQuery = query;
-              });
-            },
-          ), // Usa el CustomSearchBar
-          CustomChoiceChips(
-            options: ['Todos', 'Completados', 'En Proceso', 'Críticos'], // Define las opciones
-            selectedOption: selectedFilter,
-            onSelected: (filter) {
-              setState(() {
-                selectedFilter = filter;
-              });
-            },
-          ), // Añade CustomChoiceChips debajo de la barra de búsqueda
-          Expanded(
-            child: WorkPlanListView(procesos: filteredProcesos), // Usa la lista de procesos filtrados
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isLargeScreen = constraints.maxWidth >= 768; // Detecta pantallas grandes
+
+        return Scaffold(
+          key: scaffoldKey,
+          backgroundColor: ColorTheme.backgroundColor, // Usa backgroundColor de color_theme.dart
+          appBar: isLargeScreen
+              ? null // No muestra AppBar en pantallas grandes
+              : MainAppBar(
+                  title: 'Procesos',
+                  onMenuPressed: () {
+                    scaffoldKey.currentState?.openDrawer();
+                  },
+                ),
+          drawer: isLargeScreen
+              ? null // No muestra el drawer en pantallas grandes porque ya está visible
+              : const CustomDrawer(),
+          body: Row(
+            children: [
+              if (isLargeScreen)
+                const CustomDrawer(), // Muestra el drawer por defecto en pantallas grandes
+              Expanded(
+                child: Column(
+                  children: [
+                    CustomSearchBar(
+                      hintText: 'Buscar procesos...',
+                      onSearchChanged: (query) {
+                        setState(() {
+                          searchQuery = query;
+                        });
+                      },
+                    ), // Usa el CustomSearchBar
+                    CustomChoiceChips(
+                      options: const ['Todos', 'Completados', 'En Proceso', 'Críticos'], // Define las opciones
+                      selectedOption: selectedFilter,
+                      onSelected: (filter) {
+                        setState(() {
+                          selectedFilter = filter;
+                        });
+                      },
+                    ), // Añade CustomChoiceChips debajo de la barra de búsqueda
+                    Expanded(
+                      child: WorkPlanListView(procesos: filteredProcesos), // Usa la lista de procesos filtrados
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      floatingActionButton: CustomAddButton(
-        onPressed: () {
-          // Acción al presionar el botón
-          print('Add button pressed');
-        },
-      ), // Añade el CustomAddButton en la esquina inferior derecha
+          floatingActionButton: CustomAddButton(
+            onPressed: () async {
+              // Mostrar el diálogo de creación de proceso
+              final nuevoProceso = await showDialog(
+                context: context,
+                builder: (context) => const CreateProcessDialog(),
+              );
+
+              if (nuevoProceso != null) {
+                setState(() {
+                  // Agregar el nuevo proceso a la lista de procesos
+                  procesos.add(nuevoProceso);
+                });
+                print('Nuevo proceso añadido: $nuevoProceso');
+              }
+            },
+          ), // Añade el CustomAddButton en la esquina inferior derecha
+        );
+      },
     );
   }
 }

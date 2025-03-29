@@ -5,10 +5,10 @@ class TaskMetaContainer extends StatelessWidget {
   final int unidadesEjecutadas;
 
   const TaskMetaContainer({
-    Key? key,
+    super.key,
     required this.meta,
     required this.unidadesEjecutadas,
-  }) : super(key: key);
+  });
 
   Map<String, Color> _getEfectividadColor(double efectividadTarea) {
     Color darken(Color color, double amount) {

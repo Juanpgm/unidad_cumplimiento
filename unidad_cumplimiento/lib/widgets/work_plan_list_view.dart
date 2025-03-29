@@ -5,7 +5,7 @@ import 'package:unidad_cumplimiento/src/theme/padding_defaults.dart'; // Importa
 class WorkPlanListView extends StatelessWidget {
   final List<Map<String, dynamic>> procesos;
 
-  const WorkPlanListView({Key? key, required this.procesos}) : super(key: key);
+  const WorkPlanListView({super.key, required this.procesos});
 
   @override
   Widget build(BuildContext context) {

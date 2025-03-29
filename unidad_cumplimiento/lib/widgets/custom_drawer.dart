@@ -3,7 +3,7 @@ import 'package:unidad_cumplimiento/src/theme/color_theme.dart'; // Importa colo
 import 'package:unidad_cumplimiento/src/views/work_plans.dart'; // Importa work_plans.dart
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({Key? key}) : super(key: key);
+  const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +11,11 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
+          const DrawerHeader(
             decoration: BoxDecoration(
               color: ColorTheme.primaryColor, // Usa primaryColor de color_theme.dart
             ),
-            child: const Text(
+            child: Text(
               'Menú',
               style: TextStyle(
                 color: Colors.white,
